@@ -1,25 +1,31 @@
 /* app css stylesheet */
-
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+.user-dialog.container {
+  width: 100%;
 }
 
-.menu:before {
-  content: "[";
+.start-game {
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-.menu:after {
-  content: "]";
+.panel-body .input-group {
+  display: flex;
 }
 
-.menu > li {
-  display: inline;
+tic-tac-toe section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+tic-tac-toe section header h2 {
+  text-transform: capitalize;
+  font-weight: bold;
 }
 
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
+.tic-tac-toe table td{
+  min-width: 60px;
+  height: 51px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 30px;
 }
