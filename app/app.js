@@ -5,9 +5,9 @@
         'ngRoute',
         'ticTacToe',
         'ui.bootstrap',
-        'myApp.view1'
+        'myApp.gameView'
     ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider, $modalProvider) {
         $locationProvider.hashPrefix('!');
-        $routeProvider.otherwise({redirectTo: '/view1'});
+        $routeProvider.otherwise({redirectTo: '/gameView'});
     }]);
 })();
