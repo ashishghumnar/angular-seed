@@ -4,7 +4,7 @@
     angular.module('ticTacToe')
         .factory('validateMatrix', [function () {
             function validate(tickMatrix) {
-                return visitColumn(tickMatrix) || visitRows(tickMatrix);
+                return visitColumn(tickMatrix) || visitRows(tickMatrix) || visitDiagonals(tickMatrix);
             }
 
             function visitColumn(tickMatrix) {
@@ -31,7 +31,7 @@
                 return rowNumber.length === 3;
             }
 
-            function VisitDiagonals(tickMatrix) {
+            function visitDiagonals(tickMatrix) {
                 var diagonalsNumber = [];
 
                 angular.forEach(tickMatrix, function (item) {
