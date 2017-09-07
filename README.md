@@ -7,7 +7,7 @@ steps to use application
 
 2) run "npm start" command
   
-3) application will get start on localhost:8000
+3) application will get start on http://localhost:8000
 
 5) Enter Name of players
 
