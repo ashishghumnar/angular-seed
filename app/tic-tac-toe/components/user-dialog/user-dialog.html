@@ -12,7 +12,7 @@
 
                             <input type="text" class="form-control" placeholder="Player 1"
                                    name="playerOne"
-                                   ng-model="player.playerOne">
+                                   ng-model="player.playerOne" required>
                         </div>
                     </div>
 
@@ -20,7 +20,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Player 2"
                                    name="playerTwo"
-                                   ng-model="player.playerTwo">
+                                   ng-model="player.playerTwo" required>
 
                             <span class="input-group-btn">Player 2</span>
                         </div>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="row start-game">
-            <button class="btn-success btn" ng-click="startGame()">Start</button>
+            <button class="btn-success btn" ng-click="startGame()" ng-disabled="!playerNames.$valid" >Start</button>
         </div>
     </div>
 </div>
