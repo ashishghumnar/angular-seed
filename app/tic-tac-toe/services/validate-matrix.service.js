@@ -4,43 +4,49 @@
     angular.module('ticTacToe')
         .factory('validateMatrix', [function () {
             function validate(tickMatrix) {
+                if (tickMatrix.length < 3 ) {
+                    return false;
+                }
+
                 return visitColumn(tickMatrix) || visitRows(tickMatrix) || visitDiagonals(tickMatrix);
             }
 
             function visitColumn(tickMatrix) {
-                var colNumber = [];
+                var firstCellPos = tickMatrix[0].col,
+                    isValid = true;
 
                 angular.forEach(tickMatrix, function (item, index) {
-                    if (item.col === index) {
-                        colNumber.push(1)
+                    if (item.col !== firstCellPos) {
+                        isValid = false;
                     }
                 });
 
-                return colNumber.length === 3;
+                return isValid;
             }
 
             function visitRows(tickMatrix) {
-                var rowNumber = [];
+                var firstCellPos = tickMatrix[0].row,
+                    isValid = true;
 
                 angular.forEach(tickMatrix, function (item, index) {
-                    if (item.row === index) {
-                        rowNumber.push(1)
+                    if (item.row !== firstCellPos) {
+                        isValid = false;
                     }
                 });
 
-                return rowNumber.length === 3;
+                return isValid;
             }
 
             function visitDiagonals(tickMatrix) {
-                var diagonalsNumber = [];
+                var isValid = true;
 
                 angular.forEach(tickMatrix, function (item) {
-                    if (item.row === item.col) {
-                        diagonalsNumber.push(1)
+                    if (item.row !== item.col) {
+                        isValid = false;
                     }
                 });
 
-                return diagonalsNumber.length === 3;
+                return isValid;
             }
 
             return {
