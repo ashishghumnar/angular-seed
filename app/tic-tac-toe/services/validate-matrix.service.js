@@ -41,29 +41,29 @@
 
             function visitDiagonals(tickMatrix) {
                 var matrix = tickMatrix.matrix,
-                    tickLength = matrix.length,
+                    matrixLength = matrix.length,
                     sign = tickMatrix.player.sign,
-                    isValidRight = true,
-                    isValidLeft = true;
+                    isValidRightDiagonal = true,
+                    isValidLeftDiagonal = true;
 
-                while (tickLength--) {
-                    var row = matrix[tickLength],
+                while (matrixLength--) {
+                    var row = matrix[matrixLength],
                         rowLength = row.length;
 
                     while (rowLength--) {
-                        var currentRowLength = rowLength > tickLength ? rowLength - tickLength : tickLength - rowLength;
+                        var rowDiff = rowLength > matrixLength ? rowLength - matrixLength : matrixLength - rowLength;
 
-                        if (rowLength == tickLength && matrix[rowLength][tickLength] !== sign) {
-                            isValidRight = false;
+                        if (rowLength == matrixLength && matrix[rowLength][matrixLength] !== sign) {
+                            isValidRightDiagonal = false;
                         }
 
-                        if (matrix[tickLength][currentRowLength] !== sign) {
-                            isValidLeft = false;
+                        if (matrix[matrixLength][rowDiff] !== sign) {
+                            isValidLeftDiagonal = false;
                         }
                     }
                 }
 
-                return isValidRight || isValidLeft;
+                return isValidRightDiagonal || isValidLeftDiagonal;
             }
 
             return {
