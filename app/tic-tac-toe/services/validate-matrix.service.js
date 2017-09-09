@@ -4,62 +4,38 @@
     angular.module('ticTacToe')
         .factory('validateMatrix', [function () {
             function validate(tickMatrix) {
-                return visitRows(tickMatrix) || visitColumn(tickMatrix) || visitDiagonals(tickMatrix);
+                return visitRowsAndColumns(tickMatrix) || visitDiagonals(tickMatrix);
             }
 
-            function visitColumn(tickMatrix) {
+            function visitRowsAndColumns(tickMatrix) {
                 var matrix = tickMatrix.matrix,
                     tickLength = matrix.length,
                     sign = tickMatrix.player.sign,
-                    isValid = true;
+                    isValidRow = true,
+                    isValidColumn = true;
 
                 while (tickLength--) {
-                    var row = matrix[tickLength];
-                    isValid = true;
-
-                    for (var i = 0; i < row.length; i++) {
-                        if (matrix[i][tickLength] !== sign) {
-                            isValid = false;
-                            break;
-                        }
-                    }
-
-                    if (isValid) {
-                        break;
-                    }
-                }
-
-                return isValid;
-            }
-
-            function visitRows(tickMatrix) {
-                var matrix = tickMatrix.matrix,
-                    tickLength = matrix.length,
-                    sign = tickMatrix.player.sign,
-                    isValid = true;
-
-                while (tickLength--) {
-                    var row = matrix[tickLength];
-                    isValid = true;
+                    var row = matrix[tickLength],
+                        isValidRow = true,
+                        isValidColumn = true;
 
                     for (var i = 0; i < row.length; i++) {
                         if (row[i] !== sign) {
-                            isValid = false;
-                            break;
+                            isValidRow = false;
+                        }
+
+                        if (matrix[i][tickLength] !== sign) {
+                            isValidColumn = false;
                         }
                     }
 
-                    if (isValid) {
+                    if (isValidRow || isValidColumn) {
                         break;
                     }
                 }
 
-                return isValid;
+                return isValidRow || isValidColumn;
             }
-
-            //a[2][2] a[2][1] a[2][0]
-            //a[1][2] a[1][1] a[1][0]
-            //a[0][2] a[0][1] a[0][0]
 
             function visitDiagonals(tickMatrix) {
                 var matrix = tickMatrix.matrix,
@@ -71,8 +47,7 @@
                     var row = matrix[tickLength],
                         rowLength = row.length,
                         isValidRight = true,
-                        isValidLeft = true,
-                        current = 2;
+                        isValidLeft = true;
 
                     while (rowLength--) {
                         if (rowLength == tickLength && matrix[rowLength][tickLength] !== sign) {
@@ -80,7 +55,7 @@
                         }
 
                         if (matrix[tickLength][rowLength - tickLength] !== sign) {
-                            isValidLeft = false
+                            isValidLeft = false;
                         }
 
                         if (!isValidRight && !isValidLeft) {
