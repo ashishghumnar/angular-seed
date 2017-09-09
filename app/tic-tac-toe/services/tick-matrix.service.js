@@ -3,17 +3,18 @@
 
     angular.module('ticTacToe')
         .factory('tickMatrix', ['validateMatrix', function (validateMatrix) {
-            var tickMatrix = {};
+            var tickMatrix = [];
 
             function updateTick(tickDetails) {
-                if (!tickMatrix[tickDetails.user]) {
+                /*if (!tickMatrix[tickDetails.user]) {
                     tickMatrix[tickDetails.user] = [];
                     tickMatrix[tickDetails.user].push(tickDetails.tick);
-                } else {
-                    tickMatrix[tickDetails.user].push(tickDetails.tick);
-                }
+                } else {*/
 
-                return validateMatrix.validate(tickMatrix[tickDetails.user]);
+                    tickMatrix = tickDetails.matrix;
+                //}
+
+                return validateMatrix.validate(tickDetails);
             }
 
             return {
