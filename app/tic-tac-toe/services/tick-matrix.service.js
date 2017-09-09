@@ -6,13 +6,7 @@
             var tickMatrix = [];
 
             function updateTick(tickDetails) {
-                /*if (!tickMatrix[tickDetails.user]) {
-                    tickMatrix[tickDetails.user] = [];
-                    tickMatrix[tickDetails.user].push(tickDetails.tick);
-                } else {*/
-
-                    tickMatrix = tickDetails.matrix;
-                //}
+                tickMatrix = tickDetails.matrix;
 
                 return validateMatrix.validate(tickDetails);
             }
