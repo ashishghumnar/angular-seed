@@ -8,31 +8,27 @@ angular.module('ticTacToe')
                 size: "="
             },
             link: function ($scope, el) {
-                var current = 1;
-
+                var lastPlayer = tickMatrix.getLastPlayed() || players.playerOne;
                 $scope.matrix = {
-                    rows: _getMatrix($scope.size[0], $scope.size[1])
+                    rows: tickMatrix.getMatrix(),
+                    turn: tickMatrix.getLastPlayed() === $scope.players.playerOne.name ? $scope.players.playerTwo.name : $scope.players.playerOne.name
                 };
+
 
                 $scope.cellClick = function (row, col) {
                     var players = $scope.players;
 
+
                     if (!$scope.won) {
                         var tr = el.find('tr')[row],
-                            td = angular.element(tr).find('td')[col],
-                            player = current % 2 ? players.playerOne : players.playerTwo;
+                            td = angular.element(tr).find('td')[col];
 
-                        if (player.name === players.playerOne.name) {
-                            $scope.turn = players.playerTwo.name;
-                            angular.element(td).append('<span>' + players.playerOne.sign + '</span>');
-                        } else {
-                            $scope.turn = players.playerOne.name;
-                            angular.element(td).append('<span>' + players.playerTwo.sign + '</span>');
-                        }
+                        $scope.matrix.rows[row][col] = lastPlayer.sign;
 
-                        $scope.matrix.rows[row][col] = player.sign;
+                        player = lastPlayer.name === players.playerOne.name ?
+                            players.playerTwo : players.playerOne;
 
-                        current++;
+                        $scope.matrix.turn = player.name;
 
                         var isOver = tickMatrix.updateTick({
                             player: player,
@@ -40,27 +36,18 @@ angular.module('ticTacToe')
                         });
 
                         if (isOver) {
-                            $scope.won = player.name;
+                            $scope.won = lastPlayer.name;
                         }
                     } else {
                         alert("Gave Over, Please Restart");
                     }
                 };
 
-                function _getMatrix(rowSize, colSize) {
-                    var matrix = [];
-
-                    while (rowSize--) {
-                        var matrixCol = [];
-                        for (var j = 0; j < colSize; j++) {
-                            matrixCol.push(0);
-                        }
-
-                        matrix.push(matrixCol);
-                    }
-
-                    return matrix;
-                }
+                $scope.restart = function () {
+                    $scope.matrix.rows = tickMatrix.resetTick();
+                    $scope.matrix.turn = $scope.players.playerOne.name;
+                    $scope.won = null;
+                };
             }
         }
     }]);
